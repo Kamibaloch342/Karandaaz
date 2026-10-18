@@ -11,15 +11,15 @@ const fn = t => ({ children: [new Paragraph({ children: t.split(/(\{[^}]+\})/).f
   ? new d.ExternalHyperlink({ link: seg.slice(1, -1), children: [new TextRun({ text: seg.slice(1, -1), size: 16, style: "Hyperlink", color: "0563C1", underline: {} })] })
   : new TextRun({ text: seg, size: 16 })) })] });
 const footnotes = {
-  1: fn("SDPI, DFLT Phase II database (extract of 7 August 2026). Phone ownership (77.0%) and wallet ownership (29.0%) are from the registration profiles of 254,648 women; the share who had ever transacted on a wallet (4.0%) is from trainer-recorded cohort diagnostics covering 130,040 women in 5,554 sessions."),
+  1: fn("SDPI, DFLT Phase II database: counts recorded by trainers at the start of Day 1 in 6,306 training sessions, covering 187,296 registered women. Sessions with inconsistent counts and records of terminated trainers are excluded."),
   4: fn("SDPI, DFLT Phase II Progress Review, August 2026: 259,717 women trained against a target of 250,000, each verified against her CNIC and NSER record (data as of 4 August 2026)."),
   2: fn("SDPI conducted the monitoring and evaluation of the national DFLT pilot for GIZ from 14 December 2023 to 31 March 2024, covering 7,000 beneficiaries; its evidence informed the design of DFLT Phase I."),
   3: fn("SDPI, Impact Evaluation of the Digital and Financial Literacy Training (DFLT) Phase I, August 2026: a randomised controlled trial with difference-in-differences estimation, with a baseline of 5,370 and an endline of 4,827 women across 8 districts and 16 tehsils."),
   5: fn("Karandaaz Pakistan, RFP No. 194, Section 4, Sub-section 5 (Project Timeline and Deliverables): D5 Phase 1, approximately 250,000; D7 Phase 2, approximately 400,000; D9 Phase 3, approximately 350,000 beneficiaries."),
   6: fn("Karandaaz Pakistan, RFP No. 194, Section 4, Sub-section 3A (Blended Training Deployment Strategy), which indicates approximately 65–70% physical and 30–35% digital delivery."),
   7: fn("Karandaaz Pakistan, RFP No. 194, Section 4, Sub-section 3 (Scope of Services), Component 1: Diagnostic, Curriculum Design and Capacity Building."),
-  8: fn("Phase I figures are from the baseline survey of the DFLT Phase I impact evaluation (footnote 3). Phase II figures are from registration profiles (phone, WhatsApp and wallet) and from cohort diagnostics covering 130,040 women (wallet transactions and literacy). The questionnaires of the DFLT National Pilot, DFLT Phase I and DFLT Phase II are attached in Annex A."),
-  9: fn("SDPI estimate based on Table 1 and the DFLT Phase II Day-1 pre-test, in which 80.0% of women recognised 8171 as BISP's official SMS code before training (25,584 pre-tests)."),
+  8: fn("Phase I figures are from the baseline survey of the DFLT Phase I impact evaluation (footnote 3). Phase II figures are the Day-1 counts described in footnote 1. The questionnaires of the DFLT National Pilot, DFLT Phase I and DFLT Phase II are attached in Annex A."),
+  9: fn("SDPI estimate based on Table 1: fewer than one in five women can read and write, and only 4.2% have ever made a wallet transaction."),
   10: fn("The DFLT Phase I impact evaluation used a three-stage cluster design: four provinces, two districts per province and two tehsils per district, balanced between urban and rural areas (footnote 3)."),
   11: fn("In DFLT Phase II, SDPI's DFLT App recorded 17,797 training sessions with GPS and photographs, verified every graduate through a CNIC photograph matched to her registration, and confirmed her status against BISP's NSER (SDPI, DFLT Phase II Progress Review, August 2026)."),
   12: fn("The DFLT Phase II proposal set a target of 50% rural and 50% urban locations (SDPI, DFLT Phase II Proposal, 2025, Size and Scope). For Figure 3, each tehsil is matched to its urban population share in the Pakistan Bureau of Statistics Census 2023 ({https://www.pbs.gov.pk/}) and the tehsils are divided into two equal halves: the 73 tehsils with an urban share of 22.8% or more are shown as urban and the remaining 74 as rural."),
@@ -41,7 +41,7 @@ const quote = t => new Paragraph({ children: [new TextRun({ text: t, italics: tr
 
 const children = [
   H1("3.1 Component 1: Diagnostic, Curriculum Design and Capacity Building"),
-  PR("BISP's transition to SIM-based wallets has given beneficiaries access to their own accounts, but access has not yet translated into use. SDPI's records from DFLT Phase II show that 77% of beneficiary women own a phone and 29% report a wallet, yet only 4% have ever transacted on their own.^1^ Most continue to depend on retail agents or relatives to withdraw their payments, which exposes them to deductions and fraud. SDPI therefore proposes a Digital and Financial Capability Training built around one practical, measurable outcome: **by her next BISP payment, every trained woman will be able to receive, protect and withdraw her full payment herself, and will know where to complain if something goes wrong.**"),
+  PR("BISP's transition to SIM-based wallets has given beneficiaries access to their own accounts, but access has not yet translated into use. When SDPI assessed 187,296 women at the start of their DFLT Phase II sessions, only 18% had a digital wallet, just 4% had ever used one to make a transaction, and fewer than 2% had a bank account or could withdraw from an ATM.^1^ Most continue to depend on retail agents or relatives to withdraw their payments, which exposes them to deductions and fraud. SDPI therefore proposes a Digital and Financial Capability Training built around one practical, measurable outcome: **by her next BISP payment, every trained woman will be able to receive, protect and withdraw her full payment herself, and will know where to complain if something goes wrong.**"),
   PR("SDPI brings to this assignment the experience of every round of DFLT to date. We conducted the monitoring and evaluation of the DFLT National Pilot,^2^ designed DFLT Phase I and evaluated its impact through a randomised controlled trial,^3^ and implemented DFLT Phase II nationwide, training more than 250,000 BISP women.^4^ The approach proposed below builds directly on the systems, evidence and lessons from that work."),
   PR("**Proposed implementation model.** SDPI proposes to reach 1,000,000 beneficiaries over the three phases set out in the RFP (250,000, 400,000 and 350,000),^5^ delivering each phase in two sub-phases (Figure 1). In the **readiness sub-phase**, every beneficiary will attend an in-person session in a cohort of 30 led by one trainer, where she is registered and learns to keep her SIM active, recognise BISP's 8171 message, check her balance and protect her PIN. Over the following four weeks, SDPI will sustain her learning through IVR calls, WhatsApp messages, short instructional and animated videos, SMS nudges, robocalls and human follow-up calls. In the **capability sub-phase**, the same cohort will return a month later for a hands-on session built on transaction simulations, role plays and group activities, followed by a further four weeks of digital reinforcement. Women who are already able to transact independently will complete the capability content digitally. The readiness sub-phase will therefore be fully physical, while the capability sub-phase will follow a 70:30 physical-to-digital split in each province, in line with the indicative mix in the RFP.^6^"),
   figure(FIG("fig_beneficiary_journey.png"), 600),
@@ -52,13 +52,16 @@ const children = [
   PR("SDPI will conduct a rapid baseline assessment to evaluate beneficiaries' digital and financial capabilities, transaction behaviours, gender-related constraints (mobility, trust and household dynamics), device access and digital connectivity.^7^ The findings will set the emphasis of the curriculum and confirm the blended modality mix for each province before roll-out begins."),
   PR("**Building on SDPI's existing evidence.** Rather than starting from zero, SDPI will build on the beneficiary assessments it has already carried out across the DFLT National Pilot (2023–24), the DFLT Phase I impact evaluation (2024–25) and the DFLT Phase II national roll-out (2025–26). Table 1 presents the national snapshot from these assessments; SDPI can also provide provincial snapshots.^8^"),
   caption("Table 1: Baseline snapshot of BISP beneficiary women from SDPI's assessments"),
-  table(["Indicator", "DFLT Phase I baseline (n = 5,370)", "DFLT Phase II (n = 254,648)"], [
-    ["Owns a mobile phone", "41.9%", "77.0%"],
-    ["Has WhatsApp on her own number", "–", "41.4%"],
-    ["Has a mobile wallet or account", "12.6%", "29.0%"],
-    ["Has ever transacted on a wallet herself", "–", "4.0%"],
+  table(["Indicator", "DFLT Phase I baseline (n = 5,370)", "DFLT Phase II, Day 1 (n = 187,296)"], [
+    ["Can read and write", "–", "18.0%"],
+    ["Can do simple calculations", "64.3%", "43.8%"],
+    ["Can use the phone calculator", "13.0%", "10.0%"],
+    ["Owns a mobile phone", "41.9%", "–"],
+    ["Has a digital wallet or mobile money account", "12.6%", "18.1%"],
+    ["Has ever made a wallet transaction", "–", "4.2%"],
+    ["Has a bank account", "–", "1.6%"],
+    ["Can withdraw cash from an ATM", "–", "1.2%"],
     ["Would refuse a caller asking for her PIN", "36.3%", "–"],
-    ["Can read and write", "–", "19.8%"],
     ["Takes household financial decisions herself", "15.0%", "–"],
   ], [5026, 2000, 2000], { zebra: true, align: [LEFT, C, C] }),
   source("Source: SDPI, DFLT Phase I Impact Evaluation and DFLT Phase II database."),
