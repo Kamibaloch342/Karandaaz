@@ -70,7 +70,7 @@ def journey():
         ax.text((x0 + x1) / 2, 7.72, lab, ha="center", va="center", color="white", fontsize=11.5, fontweight="bold")
     box(ax, 2.2, 5.0, 3.9, 2.8, "Readiness session\n\nAll beneficiaries, in person\nCohort of 30, one trainer\nRegistration on DFLT App",
         LIGHT["navy"], NAVY, size=9.5)
-    box(ax, 7.7, 5.0, 5.0, 2.8, "Digital reinforcement\n\nSmartphone: WhatsApp\nvideos and messages\nBasic phone: IVR calls and SMS",
+    box(ax, 7.7, 5.0, 5.0, 2.8, "Digital reinforcement\n\nSmartphone: WhatsApp\nvideos and messages\nUSSD phone: IVR calls and SMS",
         LIGHT["teal"], TEAL, size=9.5)
     box(ax, 15.0, 6.15, 6.0, 1.5, "Capability session (70%)\nhands-on transaction simulation", LIGHT["green"], GREEN, size=9.5)
     box(ax, 15.0, 3.85, 6.0, 1.5, "Digital capability track (30%)\nwomen who already transact", "#EDE4F5", "#6A3D9A", size=9.5)
