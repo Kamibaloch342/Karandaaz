@@ -26,6 +26,7 @@ const num = v => (v === "" || v == null || isNaN(+v)) ? "–" : (+v).toLocaleStr
 const pct = v => (v === "" || v == null || isNaN(+v)) ? "–" : (+v).toFixed(1);
 const districts = parseCSV(fs.readFileSync(DATA("districts.csv"), "utf8"));
 const provinces = parseCSV(fs.readFileSync(DATA("provinces.csv"), "utf8"));
+const derived = parseCSV(fs.readFileSync(DATA("districts_post_census_derived.csv"), "utf8"));
 const notes = JSON.parse(fs.readFileSync(DATA("province_notes.json"), "utf8"));
 
 const ORDER = ["Punjab", "Sindh", "Khyber Pakhtunkhwa", "Balochistan"];
@@ -49,15 +50,23 @@ const children = [
 ];
 
 ORDER.forEach((prov, k) => {
-  const rows = districts.filter(r => r.province === prov);
+  const rows = districts.filter(r => r.province === prov).sort((a, b) => a.division.localeCompare(b.division) || a.district.localeCompare(b.district));
   children.push(H2(`B.${k + 2} ${prov}`));
   (notes.provinces[prov] || []).forEach(b => children.push(bullet(b)));
   const count = c => rows.filter(r => r.classification === c).length;
   children.push(P(`Of the ${rows.length} districts listed, ${count("Predominantly urban")} are predominantly urban, ${count("Mixed / peri-urban")} mixed or peri-urban and ${count("Predominantly rural")} predominantly rural.`));
   children.push(caption(`Table B.${k + 2}: Districts of ${prov}`));
   children.push(table(["District", "Division", "Population 2023", "Urban %", "Literacy %", "Classification", "Characteristics"],
-    rows.map(r => [r.district, r.division, num(r.population_2023), pct(r.urban_pct), pct(r.literacy_pct), r.classification, r.characteristics + (r.notes ? ` (${r.notes})` : "")]),
-    [1350, 1100, 1150, 750, 800, 1250, 2626], { zebra: true, align: [0, 0, AlignmentType.CENTER, AlignmentType.CENTER, AlignmentType.CENTER, 0, 0] }));
+    rows.map(r => [r.district, r.division, num(r.population_2023), pct(r.urban_pct), pct(r.literacy_pct), r.classification, r.characteristics]),
+    [1300, 1100, 1100, 700, 850, 1500, 2476], { zebra: true, align: [0, 0, AlignmentType.CENTER, AlignmentType.CENTER, AlignmentType.CENTER, 0, 0] }));
+  const der = derived.filter(r => r.province === prov);
+  if (der.length) {
+    children.push(caption(`Table B.${k + 2}a: Districts of ${prov} notified after the census (derived from tehsil rows)`));
+    children.push(table(["District", "Division", "Population 2023", "Urban %", "Literacy %", "Classification", "Characteristics"],
+      der.map(r => [r.district, r.division, num(r.population_2023), pct(r.urban_pct), pct(r.literacy_pct), r.classification, r.characteristics]),
+      [1300, 1100, 1100, 700, 850, 1500, 2476], { zebra: true, align: [0, 0, AlignmentType.CENTER, AlignmentType.CENTER, AlignmentType.CENTER, 0, 0] }));
+    children.push(source(notes.post_census_note));
+  }
 });
 children.push(H2("Sources"));
 notes.sources.forEach(s => children.push(bullet(s)));
