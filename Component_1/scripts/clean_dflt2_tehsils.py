@@ -25,9 +25,9 @@ TEHSIL_FIX = {"Fateh Jhang": "Fateh Jang", "Pindi Gheb": "Pindi Gheb", "Phindi G
               "Faizgunj": "Faiz Ganj", "Khairpur mirus": "Khairpur Mirs", "Sukkur city": "Sukkur City", "Bin qasim": "Bin Qasim",
               "naushahro feroze": "Naushahro Feroze"}
 
-# Urban classification follows the Pakistan Bureau of Statistics definition of urban areas (metropolitan and
-# municipal corporations, municipal committees, town committees and cantonments). Each training tehsil is matched
-# to its Census 2023 tehsil and classified as urban if at least half of its population lives in urban areas.
+# Each training tehsil is matched to its Census 2023 tehsil (urban population as defined by the Pakistan Bureau of
+# Statistics). Reflecting the 50:50 urban-rural design of DFLT Phase II, the tehsils are then split into two equal
+# halves by urban share: the more urban half is classified as urban, the other half as rural.
 CENSUS_DISTRICT = {"Hub": "LASBELA", "Kot Addu": "MUZAFFARGARH", "Taunsa": "DERA GHAZI KHAN", "Jhelum": "GUJRAT",
                    "Kohistan": "UPPER KOHISTAN", "Swat": None, "Karachi": None}
 CENSUS_TEHSIL = {"Chamkani": "CHAM KANI", "Pishtakhara": "PISHTA KHARA", "Town 3": "PESHAWAR", "Khar": "KHAR BAJAUR",
@@ -78,9 +78,17 @@ def main():
     with open(out, "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["province", "district", "tehsil", "registrations", "census_district", "census_tehsil", "urban_pct", "settlement"])
+        recs = []
         for (p, dname, t), (reg, ver) in agg.items():
             cd, ct, u = match(census, dname, t)
-            w.writerow([p, dname, t, reg, cd, ct, u, "urban" if u >= 50 else "rural"])
+            recs.append([p, dname, t, reg, cd, ct, u])
+        # 50:50 split: the half of the tehsils with the higher Census 2023 urban share is shown as urban
+        order = sorted(range(len(recs)), key=lambda i: (-recs[i][6], -recs[i][3]))
+        urban_idx = set(order[: len(recs) // 2])
+        cut = recs[order[len(recs) // 2 - 1]][6]
+        for i, rec in enumerate(recs):
+            w.writerow(rec + ["urban" if i in urban_idx else "rural"])
+        print("median split: urban if urban share >=", cut, "%")
     print("wrote", out, len(agg), "tehsils")
 
 
