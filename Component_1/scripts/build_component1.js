@@ -81,7 +81,7 @@ const children = [
     ["4", "Check her balance herself through USSD or the app", "To be established"],
     ["5", "Know her full entitlement and refuse an agent deduction", "To be established"],
     ["6", "Withdraw her full payment herself, entering her own PIN", "4% have ever transacted on a wallet (DFLT II)"],
-    ["7", "Report a problem through 8171 or the BISP tehsil office", "To be established"],
+    ["7", "Report a problem through the BISP helpline or tehsil office", "To be established"],
     ["8", "Send money or pay a bill from her wallet", "Below 4% (DFLT II)"],
     ["9", "Keep part of her payment in the wallet as savings", "To be established"],
     ["10", "Use two or more services regularly and help other women", "To be established"],
@@ -172,7 +172,7 @@ const children = [
     ["C1. Safe cash-out", "Withdraws the full amount with her own PIN or biometric; counts the cash; checks the SMS", "Tablet simulation; mock POS and toy currency", "Completes a simulated withdrawal unaided"],
     ["C2. Beyond cash-out", "Sends money, pays a bill, keeps savings in the wallet", "Simulation; group worksheet", "Completes one transfer or bill payment"],
     ["C3. Staying safe", "Handles fraud scenarios, SIM swap and a lost phone", "Group stations; scenario cards", "Solves the scenario correctly"],
-    ["C4. Getting help", "Lodges a complaint through 8171 or the BISP tehsil office", "Practice call script", "Completes the script"],
+    ["C4. Getting help", "Lodges a complaint through the BISP helpline or tehsil office", "Practice call script", "Completes the script"],
     ["C5. My money, my decision", "Discusses and plans the use of her payment at home", "Life-situation discussion", "Names one action she will take"],
   ], [1850, 2950, 2326, 1900], { zebra: false }),
   H3("Learning methods"),
@@ -223,7 +223,7 @@ const children = [
     ["Drama", "Agent: \"Baji, tell me your PIN and I will do it for you.\" Naila: \"No brother, I will enter my PIN myself.\"", "Two voices; 40 seconds"],
     ["Rule", "\"Your PIN is the key to your money. Never tell it to anyone: not the agent, not a caller, not a relative.\"", "Played twice"],
     ["Quiz", "\"If a caller from BISP asks for your PIN, what will you do? Press 1 to tell him. Press 2 to refuse and hang up.\"", "2: praise; 1: corrective message, then repeat"],
-    ["Help", "\"To complain, call 8171 or visit your BISP tehsil office. Press 5 to hear this again.\"", "5: repeat; 8: stop calls"],
+    ["Help", "\"To complain, call the BISP helpline or visit your BISP tehsil office. Press 5 to hear this again.\"", "5: repeat; 8: stop calls"],
   ], [1200, 5826, 2000], { zebra: true }),
 
   // ---------------- 3.1f
