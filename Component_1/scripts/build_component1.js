@@ -1,154 +1,116 @@
 // Builds "Component 1 - Diagnostic, Curriculum Design and Capacity Building.docx"
-const fs = require("fs");
 const path = require("path");
 const L = require("./lib");
-const { d, P, H1, H2, H3, bullet, caption, source, table, figure, styles, numbering, footer, page, save } = L;
+const { d, P, H1, H2, bullet, caption, source, table, figure, styles, numbering, footer, page, save } = L;
 const { Paragraph, TextRun, AlignmentType } = d;
 const FIG = f => path.join(__dirname, "..", "figures", f);
-const C = AlignmentType.CENTER;
+const C = AlignmentType.CENTER, LEFT = AlignmentType.LEFT;
 
 const fn = t => ({ children: [new Paragraph({ children: [new TextRun({ text: t, size: 16 })] })] });
 const footnotes = {
-  1: fn("The questionnaires of the DFLT National Pilot (2023–24), DFLT Phase I and DFLT Phase II are attached in Annex A."),
-  2: fn("Phase I figures are from the baseline household survey; Phase II figures are from registration profiles and trainer-recorded cohort diagnostics, collected after BISP began issuing SIMs to beneficiaries. Provincial snapshots can be provided on request."),
-  3: fn("District and tehsil classification follows the urban share recorded in the Pakistan Bureau of Statistics Census 2023 (Annex B)."),
-  4: fn("The DFLT informational videos developed by SDPI in collaboration with BISP are available at https://drive.google.com/drive/folders/14YuNgn4AHUPPUru1nSN6D8wzhhsuMiLw"),
+  1: fn("The questionnaires of the DFLT National Pilot, DFLT Phase I and DFLT Phase II are attached in Annex A."),
+  2: fn("Urban and rural classification follows the Pakistan Bureau of Statistics Census 2023; the district-wise classification is given in Annex B."),
+  3: fn("The DFLT informational videos developed by SDPI in collaboration with BISP are available at https://drive.google.com/drive/folders/14YuNgn4AHUPPUru1nSN6D8wzhhsuMiLw"),
 };
-
-const placeholderFig = text => new Paragraph({ alignment: C, spacing: { before: 120, after: 40 },
-  border: { top: { style: d.BorderStyle.DASHED, size: 6, color: "A6A6A6" }, bottom: { style: d.BorderStyle.DASHED, size: 6, color: "A6A6A6" } },
-  children: [new TextRun({ text, italics: true, color: "7F7F7F" })] });
+const quote = t => new Paragraph({ children: [new TextRun({ text: t, italics: true, size: 20 })], indent: { left: 567, right: 567 },
+  spacing: { before: 60, after: 60, line: 264 }, alignment: AlignmentType.JUSTIFIED });
 
 const children = [
   H1("3.1 Component 1: Diagnostic, Curriculum Design and Capacity Building"),
-  P("This component establishes where BISP beneficiaries stand, groups them according to what they need, and builds the curriculum, content and trainer capacity through which the programme will be delivered. It draws on the evidence SDPI has generated across the DFLT National Pilot, DFLT Phase I and DFLT Phase II."),
+  P("BISP now pays its beneficiaries through SIM-based wallets held in their own names, but access has not yet become use. In DFLT Phase II, 77% of women owned a phone and 29% reported a wallet, yet only 4% had ever made a transaction themselves. Most still rely on retail agents or relatives to withdraw their payments, which exposes them to deductions and fraud. The Digital and Financial Capability Training is therefore built around one practical outcome: **by her next BISP payment, every trained woman can receive, protect and withdraw her full payment herself, and knows where to complain if something goes wrong.**"),
+  P("**Implementation model.** The programme will reach 1,000,000 beneficiaries in the three phases set by Karandaaz: 250,000, 400,000 and 350,000. Each phase is delivered in two sub-phases (Figure 1). In the **readiness sub-phase**, every beneficiary attends one in-person session in a cohort of 30 at the BISP tehsil office, where she is registered on the DFLT App and learns to keep her SIM active, recognise BISP's 8171 message, check her balance and protect her PIN. For the following four weeks she receives digital reinforcement on her phone. In the **capability sub-phase**, a month after her first session, she returns for a hands-on session in which she practises withdrawals, transfers and bill payments on a transaction simulator, followed by four further weeks of digital reinforcement. Women who already transact confidently complete the capability content digitally instead. The readiness sub-phase is therefore fully physical, and the capability sub-phase follows a 70:30 physical-to-digital split in each province."),
+  figure(FIG("fig_beneficiary_journey.png"), 600),
+  caption("Figure 1: Implementation model of the Digital and Financial Capability Training"),
+  P("The sections below set out how this model is built: the baseline that establishes where beneficiaries stand (3.1a), the segmentation that decides what each woman receives (3.1b), and the curriculum, content and support structures that deliver it (3.1c to 3.1h)."),
 
   // 3.1(a)
   H2("3.1(a) Rapid Baseline Assessment"),
-  P("A rapid baseline assessment will evaluate beneficiaries' digital and financial capabilities, transaction behaviours, gender-related constraints (mobility, trust and household dynamics), device access and digital connectivity, and will inform the blended modality mix before roll-out begins."),
-  P("**Existing evidence.** SDPI holds baseline data on BISP women from three earlier rounds: the DFLT National Pilot (2023–24, 7,000 beneficiaries), the DFLT Phase I impact evaluation (2024–25, baseline of 5,370 women in 8 districts and 16 tehsils) and the DFLT Phase II national roll-out (2025–26, 254,648 registered women in 100 districts). Table 1 presents the national snapshot from these sources.", { fn: 1 }),
+  P("The baseline will establish where beneficiaries stand before training on the variables specified in the RFP: digital and financial capability, transaction behaviour, gender-related constraints (mobility, trust and household dynamics), device access and digital connectivity. Its findings will set the emphasis of the content and confirm the modality split for each province before roll-out."),
+  P("SDPI does not start from zero. Through the DFLT National Pilot (2023–24), the DFLT Phase I impact evaluation (2024–25) and the DFLT Phase II national roll-out (2025–26), it has profiled BISP women at scale. Table 1 summarises the national picture; provincial snapshots can be provided.", { fn: 1 }),
   caption("Table 1: Baseline snapshot of BISP beneficiary women"),
   table(["Indicator", "DFLT Phase I baseline (n = 5,370)", "DFLT Phase II (n = 254,648)"], [
-    { band: "Device access and digital capability" },
     ["Owns a mobile phone", "41.9%", "77.0%"],
-    ["WhatsApp on her own number", "–", "41.4%"],
-    ["Can use the phone calculator", "13.0%", "11.5%"],
-    { band: "Financial capability and transaction behaviour" },
-    ["Has a mobile money account or wallet", "12.6%", "29.0%"],
-    ["Has ever transacted on a wallet", "–", "4.0%"],
-    ["Has a bank account", "–", "9.0%"],
-    { band: "Fraud awareness" },
-    ["Would end a call asking for her PIN and contact BISP", "36.3%", "–"],
-    ["Recognises 8171 as BISP's official SMS code", "–", "80.0%"],
-    { band: "Literacy and household dynamics" },
+    ["Has WhatsApp on her own number", "–", "41.4%"],
+    ["Has a mobile wallet or account", "12.6%", "29.0%"],
+    ["Has ever transacted on a wallet herself", "–", "4.0%"],
+    ["Would refuse a caller asking for her PIN", "36.3%", "–"],
     ["Can read and write", "–", "19.8%"],
     ["Takes household financial decisions herself", "15.0%", "–"],
-  ], [5026, 2000, 2000], { align: [AlignmentType.LEFT, C, C] }),
-  source("Source: SDPI, DFLT Phase I Impact Evaluation; SDPI DFLT Phase II database."),
-  P("The evidence points to **access without use**: most women can reach a phone and a growing share hold a wallet, but very few transact on their own.", { fn: 2 }),
-  P("**Capability scale.** To show where beneficiaries stand on a scale of 1 to 10, SDPI will use a ten-step Capability Ladder in which each step is a task a woman can perform independently (Table 2). Existing evidence places the typical BISP beneficiary at step 2 or 3. The baseline will position each province, and its urban and rural tehsils, on the ladder, and the same scale will be used to track progress throughout the programme."),
-  caption("Table 2: DFLT Capability Ladder"),
-  table(["Level", "Step", "The beneficiary can independently…"], [
-    ["Readiness", "1", "Keep her BISP SIM active in a working handset"],
-    ["", "2", "Recognise a genuine BISP payment message (8171)"],
-    ["", "3", "Protect her PIN and refuse anyone who asks for it"],
-    ["", "4", "Check her balance through USSD or the app"],
-    ["Safe cash-out", "5", "Know her full entitlement and refuse an agent deduction"],
-    ["", "6", "Withdraw her full payment, entering her own PIN"],
-    ["", "7", "Report a problem through the BISP helpline or tehsil office"],
-    ["Active use", "8", "Send money or pay a bill from her wallet"],
-    ["", "9", "Keep part of her payment in the wallet as savings"],
-    ["", "10", "Use two or more services regularly and help other women"],
-  ], [1700, 800, 6526], { align: [AlignmentType.LEFT, C] }),
-  P("**Methodology.** As a large quantitative profile already exists, the baseline will be qualitative and conducted at provincial level through focus group discussions (FGDs). All four provinces will be covered through eight zones: North, Central and South Punjab; North and South Khyber Pakhtunkhwa; Upper and Lower Sindh; and Quetta in Balochistan. One district will be selected in each zone and two tehsils in each district, one urban and one rural (Figure 1). In each tehsil, FGDs will be held with beneficiary women and with men of beneficiary households, using guides adapted from the DFLT Phase I instruments."),
-  figure(FIG("fig_fgd_sampling_frame.png"), 590),
-  caption("Figure 1: Sampling frame for the rapid baseline assessment"),
-  P("The FGDs will examine each assessment variable: how women use their phones, how they collect their payments and from whom they seek help, what deductions they face, who controls the SIM and the cash, and network and charging conditions. The findings, together with a provincial snapshot, will be presented at the inception meeting in Month 1."),
+  ], [5026, 2000, 2000], { zebra: true, align: [LEFT, C, C] }),
+  source("Source: SDPI, DFLT Phase I Impact Evaluation and DFLT Phase II database."),
+  P("To show where beneficiaries stand on a scale of 1 to 10, SDPI will use a ten-step **Capability Ladder** in which each step is a task the woman performs on her own (Table 2). On current evidence, the typical beneficiary stands at step 2 or 3. The same ladder will be applied at registration, after each session and at endline, so that progress is reported on one scale throughout the programme."),
+  caption("Table 2: Capability Ladder"),
+  table(["Step", "The beneficiary can, on her own…"], [
+    { band: "Readiness" },
+    ["1", "Keep her BISP SIM active in a working handset"],
+    ["2", "Recognise a genuine BISP payment message from 8171"],
+    ["3", "Protect her PIN and refuse anyone who asks for it"],
+    ["4", "Check her balance"],
+    { band: "Safe cash-out" },
+    ["5", "Know her full entitlement and refuse an agent deduction"],
+    ["6", "Withdraw her full payment, entering her own PIN"],
+    ["7", "Report a problem through the BISP helpline or tehsil office"],
+    { band: "Active use" },
+    ["8", "Send money or pay a bill from her wallet"],
+    ["9", "Keep part of her payment in the wallet as savings"],
+    ["10", "Use two or more services regularly and help other women"],
+  ], [900, 8126], { align: [C, LEFT] }),
+  P("Because a large quantitative profile already exists, the assessment will be qualitative. Focus group discussions (FGDs) will explain the patterns behind the numbers: why women with phones still rely on agents, who controls the SIM and the cash, and what prevents women from reaching an agent on their own. FGDs will be held in all four provinces across eight zones: North, Central and South Punjab; North and South Khyber Pakhtunkhwa; Upper and Lower Sindh; and Quetta. One district will be selected in each zone and, within it, one urban and one rural tehsil, giving 16 tehsils (Figure 2). In each tehsil, two FGDs will be held with beneficiary women and one with men of beneficiary households. The findings will be presented at the inception meeting in Month 1."),
+  figure(FIG("fig_fgd_sampling_frame.png"), 580),
+  caption("Figure 2: Sampling frame of the rapid baseline assessment"),
 
   // 3.1(b)
   H2("3.1(b) Segmenting Beneficiaries into Actionable Groups"),
-  P("Segmentation determines which session each woman attends, which digital channel reaches her and how much in-person support she needs. It is built into the registration process (Figure 2)."),
-  P("**From BISP data to registration.** BISP will provide tehsil-wise beneficiary lists in which women already trained under DFLT Phase I and II are flagged. SDPI's customised DFLT App will check each beneficiary before mobilisation: women already trained under DFLT, and women who are not active BISP beneficiaries, are not enrolled. Trainers, supported by BISP tehsil offices, will mobilise eligible women, who are registered on Day 1 of the readiness session through a short survey that records their socio-economic profile (Table 3). The App then assigns each woman to a segment."),
-  figure(FIG("fig_segmentation_flow.png"), 590),
-  caption("Figure 2: Segmentation process"),
-  P("**Segmentation layers.** Beneficiaries are segmented on three layers:"),
-  new Paragraph({ children: [...L.runs("**Geography:** urban or rural tehsil, as mobility, agent access, connectivity and household norms differ between the two. DFLT Phase II training covered 163 tehsils in 103 districts on a 50:50 urban–rural basis (Figure 3)."), new d.FootnoteReferenceRun(3)], numbering: { reference: "bullets", level: 0 }, spacing: { after: 60, line: 264 } }),
-  bullet("**Device:** smartphone or USSD (feature) phone, and in each case whether she owns the handset or has access to a household phone."),
-  bullet("**Capability:** the trainer's assessment at the end of the readiness session, validated against a capability matrix on the App (own phone, literacy, prior independent transactions and the readiness task check). Women who already transact independently, for example those running a home business, are placed on the Digital Capability Track."),
-  placeholderFig("[Map: DFLT Phase II training tehsils, with yellow markers for rural and red markers for urban tehsils]"),
-  caption("Figure 3: DFLT Phase II training locations by rural and urban segmentation"),
-  caption("Table 3: Standardised beneficiary snapshot recorded at registration"),
+  P("Segmentation decides three things for each woman: whether she needs the physical capability session, which digital channel can reach her, and how much follow-up she requires. It is built into registration, so that it adds no field time."),
+  P("**Eligibility and registration.** BISP will share tehsil-wise beneficiary lists in which women already trained under DFLT Phase I and II are flagged. Before mobilisation, SDPI's customised DFLT App will screen each woman and exclude those already trained and those who are not active beneficiaries. Trainers, with the support of BISP tehsil offices, will mobilise eligible women, who are registered on the App on the day of their readiness session. Registration records a standardised profile of each beneficiary (Table 3), which is reported on SDPI's live dashboard by province, district and tehsil."),
+  caption("Table 3: Standardised beneficiary profile recorded at registration"),
   table(["Section", "Variables"], [
-    ["Identity and eligibility", "CNIC, district, tehsil, union council, rural or urban, BISP active status, DFLT I or II status"],
-    ["Socio-economic profile", "Age, marital status, education, household size and type, occupation or home enterprise, disability"],
-    ["Device and connectivity", "Phone type, ownership or access, BISP SIM in a working handset, WhatsApp, network at home"],
+    ["Identity and eligibility", "CNIC, district, tehsil, union council, urban or rural, BISP status, DFLT I or II status"],
+    ["Socio-economic profile", "Age, marital status, education, household size and type, occupation or home enterprise"],
+    ["Device and connectivity", "Smartphone or basic phone, ownership or shared access, BISP SIM in use, WhatsApp, network"],
     ["Wallet and transactions", "Assigned wallet, PIN set, last withdrawal and who assisted, any deduction faced"],
-    ["Agency", "Who keeps the SIM and phone, who decides on the use of the payment, ability to visit the agent alone"],
-    ["Preferences", "Language and preferred call time"],
+    ["Agency and preferences", "Who keeps the SIM and decides on the payment, ability to visit the agent alone, language"],
   ], [2400, 6626], { zebra: true }),
-  P("The snapshot is reported on SDPI's live dashboard by section and variable for each province, district and tehsil."),
-  P("**From segments to delivery.** Each Karandaaz phase (250,000, 400,000 and 350,000 beneficiaries) is delivered in two sub-phases, readiness and capability (Figure 4). Every beneficiary attends the readiness session in person. She then receives four weeks of digital reinforcement before returning, a month after her first session, for the capability session. Women on the Digital Capability Track receive the capability content digitally instead. The resulting physical-to-digital composition in the capability sub-phase is 70:30 for each province as a whole (Table 4); urban districts may sit above this share and remote rural districts below it."),
-  figure(FIG("fig_beneficiary_journey.png"), 590),
-  caption("Figure 4: Beneficiary journey through the readiness and capability sub-phases"),
-  caption("Table 4: Beneficiaries by phase and sub-phase"),
-  table(["Phase", "Readiness (physical)", "Capability (physical, 70%)", "Capability (digital, 30%)"], [
-    ["Phase 1", "250,000", "175,000", "75,000"],
-    ["Phase 2", "400,000", "280,000", "120,000"],
-    ["Phase 3", "350,000", "245,000", "105,000"],
-    ["**Total**", "**1,000,000**", "**700,000**", "**300,000**"],
-  ], [2426, 2200, 2200, 2200], { align: [AlignmentType.LEFT, C, C, C] }),
+  P("**Segmentation layers.** Women are then segmented on three layers:"),
+  bullet("**Geography.** Each tehsil is classified as urban or rural (Figure 3), as agent access, connectivity, mobility and household norms differ between the two. DFLT Phase II followed the same 50:50 urban–rural design across 103 districts and 163 tehsils."),
+  bullet("**Device.** Women are grouped by whether they use a smartphone or a basic phone, and whether they own it or share a household handset. This determines the digital channel through which she is reached."),
+  bullet("**Capability.** At the end of the readiness session, the trainer identifies women who already transact independently, for example those running a small business from home. The App confirms this against phone ownership, literacy, prior transactions and the readiness task check. These women follow the digital capability track; all others attend the physical capability session."),
+  figure(FIG("fig_district_rural_urban_map.png"), 440),
+  caption("Figure 3: Urban and rural classification of districts"),
+  source("Source: SDPI analysis of Pakistan Bureau of Statistics, Census 2023. District boundaries as of 2017; districts created since are shown within their parent district."),
+  P("While the 70:30 capability split holds for each province as a whole, it will vary within it: urban districts such as Lahore are expected to carry a larger digital share and remote rural districts a smaller one.", { fn: 2 }),
 
   // 3.1(c)
   H2("3.1(c) Task-Based, Action-Oriented Curriculum"),
-  P("The curriculum focuses on the high-impact behaviours of receiving payments, PIN use, safe cash-out, fraud awareness and grievance redressal, followed by the use of the account beyond cash-out. Each module targets one behaviour and is completed only when the woman performs the task (Table 5)."),
-  caption("Table 5: Curriculum outline"),
-  table(["Sub-phase", "Module", "Target behaviour", "Method"], [
-    ["Readiness", "My SIM, my account", "Keeps the BISP SIM active in a working handset and never hands it over", "Demonstration with dummy SIM"],
-    ["", "Receiving my payment", "Recognises the 8171 message and checks her balance", "Practice on her own phone"],
-    ["", "My PIN, my secret", "Refuses PIN and OTP requests and identifies scam calls", "Role play; right-and-wrong worksheet"],
-    ["", "My rights at the agent", "Knows there is no deduction and how to complain", "Role play"],
-    ["Capability", "Safe cash-out", "Withdraws her full payment with her own PIN and counts the cash", "Transaction simulation"],
-    ["", "Beyond cash-out", "Sends money, pays a bill and keeps savings in the wallet", "Simulation; group worksheet"],
-    ["", "Staying safe and getting help", "Handles fraud scenarios and lodges a complaint", "Scenario cards; group activity"],
-    ["", "My money, my decision", "Plans the use of her payment within the household", "Group discussion"],
-  ], [1300, 2100, 3526, 2100], { zebra: false }),
-  P("The curriculum is delivered through four action-oriented methods:"),
-  bullet("**Trainer-versus-beneficiary role play.** The trainer plays a retail agent who demands a fee of PKR 1,000 and then pauses; the cohort decides whether the beneficiary should pay. The women reach the correct answer themselves."),
-  bullet("**Group activities.** In the capability session, the cohort of 30 is divided into five groups that rotate through a role play, a scenario, a life situation and a worksheet."),
-  bullet("**Worksheets.** Groups arrange picture cards into the correct sequence of a payment, from receiving the 8171 message to counting the cash, and complete pictorial right-and-wrong sheets on everyday situations, such as telling the agent one's PIN."),
-  bullet("**Transaction simulation.** Each trainer carries a tablet with an offline simulator that reproduces the USSD and app screens of the wallet assigned to that district under BISP's district bank model. Women complete near-real withdrawals, transfers and bill payments without any money moving; those with their own phone also practise on their handset."),
+  P("The curriculum teaches tasks rather than concepts. It focuses on the high-impact behaviours set out in the RFP (receiving payments, PIN use, safe cash-out, fraud awareness and grievance redressal) and then on using the account beyond cash-out. The readiness session prepares the woman to receive and protect her payment; the capability session enables her to withdraw and use it (Table 4). A module is complete only when she performs the task herself."),
+  caption("Table 4: Curriculum outline"),
+  table(["Session", "Module", "On completion, the beneficiary can…"], [
+    ["Readiness", "My SIM, my account", "Keep her BISP SIM active and never hand it over"],
+    ["", "Receiving my payment", "Recognise the 8171 message and check her balance"],
+    ["", "My PIN, my secret", "Refuse PIN and OTP requests and identify scam calls"],
+    ["", "My rights at the agent", "Insist on her full payment and know how to complain"],
+    ["Capability", "Safe cash-out", "Withdraw her full payment with her own PIN and count the cash"],
+    ["", "Beyond cash-out", "Send money, pay a bill and keep savings in the wallet"],
+    ["", "Staying safe", "Handle fraud situations and lodge a complaint"],
+    ["", "My money, my decision", "Plan the use of her payment within the household"],
+  ], [1500, 2500, 5026], { align: [LEFT] }),
+  P("Teaching relies on practice rather than lecture. In **trainer-versus-beneficiary role plays**, the trainer acts as an agent who demands a fee of PKR 1,000, and the cohort decides how the woman should respond. In the capability session, the cohort of 30 works in **five groups** on scenarios, role plays and pictorial worksheets, such as arranging picture cards into the steps of a safe withdrawal or marking the right and wrong action in everyday situations. Each trainer also carries a tablet with an offline **transaction simulator** that reproduces the USSD and app screens of the wallet assigned to that district, so that every woman completes a near-real withdrawal, transfer and bill payment without any money moving. Women with their own phones also practise on their handsets."),
 
   // 3.1(d)
   H2("3.1(d) Localisation across Languages, Literacy Levels and Geographies"),
-  P("All content will be produced in Urdu, Sindhi, Pashto, Brahvi and Marwari, with trainers recruited locally to facilitate in the cohort's own language. Every task can be learnt without reading, through pictures, icons, numerals, audio and demonstration. Content is adapted to each district's assigned wallet and local agent networks, and illustrations reflect local settings. All localised material will be pre-tested with beneficiaries before submission for approval."),
+  P("All content will be produced in Urdu, Sindhi, Pashto, Brahvi and Marwari, and trainers will be recruited locally so that sessions are conducted in the cohort's own language. Every task can be learnt without reading, through pictures, icons, numerals, audio and demonstration. Content will reflect each district's assigned wallet and local agent networks, and illustrations will reflect local settings. All localised material will be pre-tested with beneficiaries before it is submitted for approval."),
 
   // 3.1(e)
   H2("3.1(e) Blended Content Package"),
-  P("SDPI will design a full blended content package covering both physical and digital channels (Table 6). All content will be approved by Karandaaz and BISP prior to deployment."),
-  caption("Table 6: Blended content package"),
-  table(["Channel", "Content"], [
-    ["Physical", "Facilitator and trainer guides for the readiness and capability sessions; a 20-page pictorial participant handbook, building on the DFLT Phase II handbook printed by SDPI; job aids, including a counter card and a district USSD code card; printed flyers on fraud warning signs and complaint channels; demonstration toolkits (dummy SIMs, printed wallet screens, flow charts, worksheets); and simulation tablets"],
-    ["Digital", "IVR scripts; SMS nudge sequences; short instructional and animated videos, building on the 12 DFLT videos developed by SDPI in collaboration with BISP; digital media awareness materials; and e-guide versions of the handbook and job aids shared through WhatsApp"],
-  ], [1600, 7426], { zebra: false }),
-  P("The digital content each woman receives depends on her device (Table 7). Women with a smartphone receive videos and messages through WhatsApp, which is lower in cost, while women with a USSD phone receive IVR calls and SMS. Robocalls and a human follow-up call reach all beneficiaries.", { fn: 4 }),
-  caption("Table 7: Digital reinforcement by device"),
-  table(["Device", "After readiness (4 weeks)", "After capability (4 weeks)", "Total"], [
-    ["Smartphone (own or access)", "3 videos, 4 WhatsApp messages", "3 videos, 4 WhatsApp messages", "6 videos, 8 messages"],
-    ["USSD phone (own or access)", "4 IVR calls, 3 SMS", "4 IVR calls, 3 SMS", "8 IVR calls, 6 SMS"],
-  ], [2526, 2300, 2300, 1900], { align: [AlignmentType.LEFT, C, C, C] }),
-  P("Each IVR call is a short audio drama in the beneficiary's language that teaches one rule and tests it with a keypad question, as in the example below."),
-  caption("Sample IVR script: \"Your PIN, your secret\""),
-  table(["Step", "Message"], [
-    ["Introduction", "\"This is a message from BISP's training programme. If this phone belongs to someone else, please hand it to her.\""],
-    ["Story", "Agent: \"Baji, tell me your PIN and I will do it for you.\" Naila: \"No brother, I will enter my PIN myself.\""],
-    ["Rule", "\"Your PIN is the key to your money. Never tell it to anyone, not the agent, a caller or a relative.\""],
-    ["Question", "\"If a caller asks for your PIN, press 1 to tell him or 2 to refuse and hang up.\" (Pressing 1 plays a correction.)"],
-    ["Help", "\"To complain, call the BISP helpline or visit your BISP tehsil office. Press 5 to hear this message again.\""],
-  ], [1600, 7426], { zebra: true }),
+  P("**Physical content.** Trainers will work from facilitator and trainer guides for each session. Beneficiaries will receive a 20-page pictorial handbook, building on the DFLT Phase II handbook printed by SDPI, together with job aids such as a counter card listing the checks to make at the agent, and printed flyers on fraud warning signs and complaint channels. Sessions will use demonstration toolkits (dummy SIMs, printed wallet screens, flow charts and worksheets) and the simulation tablets."),
+  P("**Digital content.** Digital reinforcement is matched to the beneficiary's device. Women with a smartphone receive short videos and messages through WhatsApp: three videos and four messages in each four-week window. Women with a basic phone receive IVR calls and SMS: four calls and three messages in each window. Robocall reminders and a human follow-up call reach all beneficiaries. The videos build on the 12 animated DFLT videos developed by SDPI in collaboration with BISP, and e-guide versions of the handbook will be shared through WhatsApp.", { fn: 3 }),
+  P("Each IVR call is a short audio drama in the beneficiary's language that teaches one rule and tests it with a keypad question. For example:"),
+  quote("Agent: \"Baji, tell me your PIN and I will do it for you.\" Naila: \"No, brother. I will enter my PIN myself.\" Narrator: \"Your PIN is the key to your money. Never share it with anyone. If someone asks for your PIN, what will you do? Press 1 to share it, or press 2 to refuse.\""),
+  P("All physical and digital content will be approved by Karandaaz and BISP before deployment."),
 
   // 3.1(f)
   H2("3.1(f) Gender-Intentional Content"),
-  P("Gender is built into all content rather than added as a separate module. In DFLT Phase II, all pictorial content was led by women characters, and the handbook's protagonists, Naila and Shumaila and Akbari and Asghari, became widely popular among BISP beneficiaries, who saw themselves in their story of learning and taking decisions. These characters will carry the Phase III content across the handbook, videos, IVR dramas and flyers, covering women's right to receive and control their own payment, keeping the SIM and PIN under their own control when the phone is shared, fraud that targets women, and navigating household decisions about the payment."),
+  P("Gender is built into all content rather than added as a separate module. In DFLT Phase II, all pictorial content was led by women characters, and the handbook's protagonists, Naila and Shumaila and Akbari and Asghari, became widely popular among beneficiaries, who saw themselves in their story of learning and taking decisions. These characters will carry the content across the handbook, videos, IVR dramas and flyers, addressing women's right to receive and control their own payment, keeping the SIM and PIN under their own control when a phone is shared, fraud that targets women, and navigating household decisions about the payment."),
 
   // 3.1(g)
   H2("3.1(g) Training of Trainers"),
@@ -156,7 +118,7 @@ const children = [
 
   // 3.1(h)
   H2("3.1(h) Peer Educator Model"),
-  P("To support last-mile learning and confidence building, each trainer will engage a female peer educator from the community, such as a literate daughter of a beneficiary or a trusted woman known to the trainer. The peer educator supports mobilisation, helps women set up WhatsApp and practise their balance check, shares digital content with women who do not have a phone, and follows up with those who miss a session. In addition, each trainer will hold a monthly community session at a payment touchpoint, coaching women at the point of withdrawal and reinforcing safe transaction practices."),
+  P("To support last-mile learning and confidence, each trainer will engage a female peer educator from the community, such as a literate daughter of a beneficiary or a trusted woman known to the trainer. The peer educator will help with mobilisation, help women set up WhatsApp and practise their balance check, share digital content with women who do not have a phone, and follow up with those who miss a session. Each trainer will also hold a monthly community session at a payment touchpoint, coaching women at the point of withdrawal and reinforcing safe transaction practices."),
 ];
 
 const doc = new d.Document({

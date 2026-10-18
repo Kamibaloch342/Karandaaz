@@ -61,26 +61,24 @@ def fgd_frame():
 
 
 def journey():
-    fig, ax = plt.subplots(figsize=(11, 4.6))
-    ax.set_xlim(0, 22.4); ax.set_ylim(1.6, 9); ax.axis("off")
-    for x0, x1, lab in [(0.2, 10.4, "Month 1 · Readiness sub-phase"), (10.6, 22.2, "Month 2 · Capability sub-phase")]:
-        ax.add_patch(FancyBboxPatch((x0, 7.6), x1 - x0, 0.9, boxstyle="round,pad=0,rounding_size=0.1", fc=NAVY, ec=NAVY))
-        ax.text((x0 + x1) / 2, 8.05, lab, ha="center", va="center", color="white", fontsize=11.5, fontweight="bold")
-    box(ax, 2.2, 5.2, 3.9, 2.8, "Readiness session\n(Day 1, in person)\n\n100% of the cohort\nRegistration on DFLT App\nSIM, PIN, 8171, balance,\nagent rights, complaints",
-        LIGHT["navy"], NAVY, size=9)
-    box(ax, 7.7, 5.2, 5.0, 2.8, "Four weeks of\ndigital reinforcement\n\nSmartphone: WhatsApp videos\nand messages\nUSSD phone: IVR and SMS\nAll: robocalls + one human call",
-        LIGHT["teal"], TEAL, size=9)
-    box(ax, 11.85, 5.2, 1.9, 2.8, "Capability\ngate\n\nTrainer\ninference\n+ matrix", LIGHT["orange"], ORANGE, size=9)
-    box(ax, 15.7, 6.4, 4.7, 1.55, "Physical capability\nsession (≈70%)\nsimulation, role play, worksheets", LIGHT["green"], GREEN, size=9)
-    box(ax, 15.7, 4.0, 4.7, 1.55, "Digital capability\ntrack (≈30%)\ncapability content on phone", "#EDE4F5", "#6A3D9A", size=9)
-    box(ax, 20.35, 5.2, 3.3, 2.8, "Four weeks of\ndigital reinforcement\n(capability content)\n\nThen BISP payment:\nself cash-out", LIGHT["teal"], TEAL, size=9)
-    arrow(ax, 4.15, 5.2, 5.2, 5.2); arrow(ax, 10.2, 5.2, 10.9, 5.2)
-    arrow(ax, 12.8, 5.7, 13.35, 6.3); arrow(ax, 12.8, 4.7, 13.35, 4.1)
-    arrow(ax, 18.05, 6.3, 18.7, 5.7); arrow(ax, 18.05, 4.1, 18.7, 4.7)
-    for x, t in [(2.2, "Week 0"), (7.7, "Weeks 1–4"), (11.85, "Week 5"), (20.35, "Weeks 5–8")]:
-        ax.text(x, 3.5, t, ha="center", fontsize=8.8, color="#7F7F7F")
-    ax.text(11.2, 2.3, "Example: a cohort trained on 1 January returns on 1 February for the capability sub-phase; its reinforcement runs to early March, ahead of the next BISP payment.\n"
-            "Each trainer repeats this sequence cohort by cohort, so readiness and capability sessions run side by side from Month 2.", ha="center", va="center", fontsize=9, color="#404040")
+    fig, ax = plt.subplots(figsize=(11, 4.4))
+    ax.set_xlim(0, 22.4); ax.set_ylim(2.6, 9.2); ax.axis("off")
+    ax.text(11.2, 8.75, "Each Karandaaz phase  ·  Phase 1: 250,000   ·   Phase 2: 400,000   ·   Phase 3: 350,000",
+            ha="center", va="center", fontsize=11, color=NAVY, fontweight="bold")
+    for x0, x1, lab in [(0.2, 10.4, "Sub-phase 1 · Readiness (Month 1)"), (10.6, 22.2, "Sub-phase 2 · Capability (Month 2)")]:
+        ax.add_patch(FancyBboxPatch((x0, 7.3), x1 - x0, 0.85, boxstyle="round,pad=0,rounding_size=0.1", fc=NAVY, ec=NAVY))
+        ax.text((x0 + x1) / 2, 7.72, lab, ha="center", va="center", color="white", fontsize=11.5, fontweight="bold")
+    box(ax, 2.2, 5.0, 3.9, 2.8, "Readiness session\n\nAll beneficiaries, in person\nCohort of 30, one trainer\nRegistration on DFLT App",
+        LIGHT["navy"], NAVY, size=9.5)
+    box(ax, 7.7, 5.0, 5.0, 2.8, "Digital reinforcement\n\nSmartphone: WhatsApp\nvideos and messages\nBasic phone: IVR calls and SMS",
+        LIGHT["teal"], TEAL, size=9.5)
+    box(ax, 15.0, 6.15, 6.0, 1.5, "Capability session (70%)\nhands-on transaction simulation", LIGHT["green"], GREEN, size=9.5)
+    box(ax, 15.0, 3.85, 6.0, 1.5, "Digital capability track (30%)\nwomen who already transact", "#EDE4F5", "#6A3D9A", size=9.5)
+    box(ax, 20.35, 5.0, 3.3, 2.8, "Digital\nreinforcement\n\nReady for the\nnext BISP\npayment", LIGHT["teal"], TEAL, size=9.5)
+    arrow(ax, 4.15, 5.0, 5.2, 5.0); arrow(ax, 10.2, 5.0, 11.95, 6.0); arrow(ax, 10.2, 5.0, 11.95, 4.0)
+    arrow(ax, 18.0, 6.0, 18.7, 5.4); arrow(ax, 18.0, 4.0, 18.7, 4.6)
+    for x, t in [(2.2, "Week 0"), (7.7, "Weeks 1–4"), (15.0, "Week 5"), (20.35, "Weeks 5–8")]:
+        ax.text(x, 2.75 if x == 15.0 else 3.3, t, ha="center", fontsize=9, color="#7F7F7F")
     fig.savefig(os.path.join(OUT, "fig_beneficiary_journey.png"), dpi=220, bbox_inches="tight")
     plt.close(fig)
 
@@ -134,4 +132,4 @@ def segmentation():
 
 
 if __name__ == "__main__":
-    fgd_frame(); journey(); segmentation()
+    fgd_frame(); journey()
