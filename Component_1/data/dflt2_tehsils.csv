@@ -1,0 +1,148 @@
+province,district,tehsil,registrations,verified,settlement
+Balochistan,Harnai,Harnai,1017,26,urban
+Balochistan,Hub,Hub,1210,203,urban
+Balochistan,Jaffarabad,Jhatpat,343,0,rural
+Balochistan,Kech,Buleda,1138,40,rural
+Balochistan,Khuzdar,Khuzdar,947,52,urban
+Balochistan,Killa Abdullah,Killa Abdullah,788,0,rural
+Balochistan,Quetta,Quetta City,5978,691,urban
+Islamabad,Islamabad,Islamabad,3879,1528,urban
+Khyber Pakhtunkhwa,Abbottabad,Abbottabad,2697,1137,rural
+Khyber Pakhtunkhwa,Abbottabad,Havelian,4494,1024,rural
+Khyber Pakhtunkhwa,Abbottabad,Lora,1402,493,rural
+Khyber Pakhtunkhwa,Bajaur,Khar,1026,234,rural
+Khyber Pakhtunkhwa,Bajaur,Mamund,1188,230,rural
+Khyber Pakhtunkhwa,Bannu,Domel,1895,419,rural
+Khyber Pakhtunkhwa,Bannu,Kakki,1096,44,rural
+Khyber Pakhtunkhwa,Batagram,Allai,1137,44,rural
+Khyber Pakhtunkhwa,Batagram,Batagram,1231,232,rural
+Khyber Pakhtunkhwa,Buner,Gagra(Sawari),1205,162,rural
+Khyber Pakhtunkhwa,Buner,Khadukhail,1252,223,rural
+Khyber Pakhtunkhwa,Charsadda,Charsadda,1241,217,rural
+Khyber Pakhtunkhwa,Charsadda,Shabqadar,2266,476,rural
+Khyber Pakhtunkhwa,Dera Ismail Khan,Dera Ismail Khan,3104,607,rural
+Khyber Pakhtunkhwa,Dera Ismail Khan,Paharpur,1182,247,rural
+Khyber Pakhtunkhwa,Dera Ismail Khan,Paroa,2317,284,rural
+Khyber Pakhtunkhwa,Hangu,Hangu,1214,223,rural
+Khyber Pakhtunkhwa,Haripur,Haripur,1521,514,rural
+Khyber Pakhtunkhwa,Karak,Karak,1349,308,rural
+Khyber Pakhtunkhwa,Karak,Thakh E Nasrti,1596,242,rural
+Khyber Pakhtunkhwa,Khyber,Jamrud,1567,207,rural
+Khyber Pakhtunkhwa,Kohat,Lachi,1191,216,rural
+Khyber Pakhtunkhwa,Kohistan,Dassu,655,0,rural
+Khyber Pakhtunkhwa,Kurram,Upper Kurram,1215,207,rural
+Khyber Pakhtunkhwa,Lakki Marwat,Laaki Marwat,1054,131,rural
+Khyber Pakhtunkhwa,Lakki Marwat,Serai Naurang,978,415,rural
+Khyber Pakhtunkhwa,Lower Chitral,Chitral,3218,493,rural
+Khyber Pakhtunkhwa,Lower Kohistan,Bankand,938,179,rural
+Khyber Pakhtunkhwa,Lower Kohistan,Pattan,976,173,rural
+Khyber Pakhtunkhwa,Mansehra,Bala Kot,1204,182,rural
+Khyber Pakhtunkhwa,Mansehra,Mansehra,1252,236,rural
+Khyber Pakhtunkhwa,Mardan,Mardan,1139,220,rural
+Khyber Pakhtunkhwa,Mohmand,Prang Ghar,1273,171,rural
+Khyber Pakhtunkhwa,Nowshera,Nowshera,1268,441,rural
+Khyber Pakhtunkhwa,Nowshera,Pabbi,2050,342,rural
+Khyber Pakhtunkhwa,Orakzai,Central,1117,219,rural
+Khyber Pakhtunkhwa,Peshawar,Chamkani,2437,401,urban
+Khyber Pakhtunkhwa,Peshawar,Peshawar,916,14,urban
+Khyber Pakhtunkhwa,Peshawar,Pishtakhara,954,30,urban
+Khyber Pakhtunkhwa,Peshawar,Shah Alam,1168,46,urban
+Khyber Pakhtunkhwa,Peshawar,Town 3,864,59,urban
+Khyber Pakhtunkhwa,Shangla,Bisham,1190,214,rural
+Khyber Pakhtunkhwa,Swabi,Swabi,1077,261,rural
+Khyber Pakhtunkhwa,Swat,Khawazakhela,1013,36,rural
+Khyber Pakhtunkhwa,Swat,Samarbagh,1304,239,rural
+Khyber Pakhtunkhwa,Upper Chitral,Mastuj,1033,0,rural
+Khyber Pakhtunkhwa,Upper Dir,Dir,1180,143,rural
+Punjab,Attock,Attock,280,34,urban
+Punjab,Attock,Fateh Jang,3997,919,rural
+Punjab,Attock,Pindi Gheb,1284,476,rural
+Punjab,Bahawalnagar,Bahawalnagar,2350,521,urban
+Punjab,Bahawalnagar,Minchinabad,1074,270,rural
+Punjab,Bahawalpur,Ahmadpur East,1702,215,rural
+Punjab,Bahawalpur,Yazman,2245,505,rural
+Punjab,Bhakkar,Bhakkar,3388,468,rural
+Punjab,Bhakkar,Darya Khan,2409,475,rural
+Punjab,Bhakkar,Mankera,1368,55,rural
+Punjab,Chakwal,Choa Saidan Shah,959,342,rural
+Punjab,Chiniot,Chiniot,698,470,urban
+Punjab,Dera Ghazi Khan,Dera Ghazi Khan,2194,242,rural
+Punjab,Dera Ghazi Khan,Kot Chhutta,1859,266,rural
+Punjab,Faisalabad,Faisalabad City,1878,257,urban
+Punjab,Faisalabad,Sammundri,2050,461,rural
+Punjab,Gujranwala,Gujranwala City,1574,203,urban
+Punjab,Gujranwala,Kamoke,1095,162,rural
+Punjab,Gujranwala,Wazirabad,2224,432,rural
+Punjab,Gujrat,Kharian,2516,465,rural
+Punjab,Hafizabad,Pindi Bhattian,1071,207,rural
+Punjab,Rajanpur,Jampur,3892,554,rural
+Punjab,Jhelum,Sarai Alamghir,952,37,rural
+Punjab,Jhang,18 Hazari,2236,454,rural
+Punjab,Jhang,Jhang,2404,252,urban
+Punjab,Jhang,Shorkot,1634,242,rural
+Punjab,Khanewal,Khanewal,2515,504,rural
+Punjab,Khushab,Khushab,1265,257,urban
+Punjab,Khushab,Quaidabad,1364,226,rural
+Punjab,Kot Addu,Kot Addu,1696,268,rural
+Punjab,Lahore,Lahore Cantt,370,210,urban
+Punjab,Lahore,Lahore City,2574,463,urban
+Punjab,Lahore,Model Town,1898,219,urban
+Punjab,Lahore,Shalimar,608,29,urban
+Punjab,Layyah,Choubara,2197,503,rural
+Punjab,Layyah,Layyah,2279,469,rural
+Punjab,Lodhran,Kahror Pakka,1849,262,rural
+Punjab,Lodhran,Lodhran,5113,314,rural
+Punjab,Mandi Bahauddin,Phalia,1095,210,rural
+Punjab,Mianwali,Isakhel,1103,242,rural
+Punjab,Mianwali,Mianwali,1419,222,rural
+Punjab,Mianwali,Piplan,1338,264,rural
+Punjab,Multan,Jalalpur Pirwala,4280,784,rural
+Punjab,Multan,Multan,1029,58,urban
+Punjab,Multan,Multan City,2197,543,urban
+Punjab,Multan,Shujaabad,1458,266,rural
+Punjab,Muzaffargarh,Alipur,3578,495,rural
+Punjab,Muzaffargarh,Muzaffargarh,5992,580,rural
+Punjab,Nankana Sahib,Nankana Sahib,1197,97,rural
+Punjab,Narowal,Narowal,2320,623,rural
+Punjab,Okara,Depalpur,2566,430,rural
+Punjab,Okara,Okara,118,79,urban
+Punjab,Okara,Renala Khurd,1286,262,rural
+Punjab,Pakpattan,Pakpattan,232,0,rural
+Punjab,Rahim Yar Khan,Khanpur,2607,477,rural
+Punjab,Rahim Yar Khan,Rahim Yar Khan,4119,447,rural
+Punjab,Rajanpur,Rajanpur,3865,246,urban
+Punjab,Rawalpindi,Gujar Khan,1394,541,rural
+Punjab,Rawalpindi,Kallar Syedan,1291,495,rural
+Punjab,Rawalpindi,Rawalpindi,4213,1601,urban
+Punjab,Sahiwal,Sahiwal,975,43,urban
+Punjab,Sargodha,Bhalwal,1165,226,rural
+Punjab,Sargodha,Sargodha,1924,262,urban
+Punjab,Nankana Sahib,Shahkot,1054,180,rural
+Punjab,Sheikhupura,Sharak Pur,1129,243,rural
+Punjab,Sialkot,Sialkot,1185,274,urban
+Punjab,Taunsa,Taunsa,2174,265,rural
+Punjab,Toba Tek Singh,Kamalia,1098,219,rural
+Punjab,Toba Tek Singh,Pirmahal,19,226,rural
+Punjab,Vehari,Burewala,2402,510,rural
+Punjab,Vehari,Mailsi,1586,242,rural
+Punjab,Vehari,Vehari,2050,320,rural
+Sindh,Karachi,Bin Qasim,1377,259,urban
+Sindh,Karachi,Aram Bagh,2333,348,urban
+Sindh,Dadu,Dadu,1407,300,urban
+Sindh,Khairpur,Faiz Ganj,2447,409,rural
+Sindh,Karachi,Garden,1134,218,urban
+Sindh,Karachi,Gulshan,1290,166,urban
+Sindh,Hyderabad,Hyderabad,1193,187,urban
+Sindh,Karachi,Malir,1415,255,urban
+Sindh,Shaheed Benazirabad,Kazi Ahmed,1431,263,rural
+Sindh,Khairpur,Khairpur Mirs,2562,441,urban
+Sindh,Jamshoro,Kotri,1119,237,urban
+Sindh,Karachi,Manghopir,1327,253,urban
+Sindh,Dadu,Mehar,1275,195,rural
+Sindh,Naushahro Feroze,Mehrabpur,2593,481,rural
+Sindh,Karachi,Orangi,2748,534,urban
+Sindh,Sukkur,Panoaqil,1354,262,rural
+Sindh,Sukkur,Rohri,1284,241,rural
+Sindh,Karachi,Shah Faisal Colony,1110,236,urban
+Sindh,Sukkur,Sukkur City,1270,178,urban
+Sindh,Naushahro Feroze,Naushahro Feroze,1516,272,urban
