@@ -9,7 +9,7 @@ const C = AlignmentType.CENTER, LEFT = AlignmentType.LEFT;
 const fn = t => ({ children: [new Paragraph({ children: [new TextRun({ text: t, size: 16 })] })] });
 const footnotes = {
   1: fn("The questionnaires of the DFLT National Pilot, DFLT Phase I and DFLT Phase II are attached in Annex A."),
-  2: fn("A tehsil is classified as urban if it is a town or city tehsil of a metropolitan area, or the headquarters tehsil of a district that is at least 25% urban in the Pakistan Bureau of Statistics Census 2023 (Annex B); all other tehsils are classified as rural."),
+  2: fn("Following the Pakistan Bureau of Statistics definition of urban areas (metropolitan and municipal corporations, municipal committees, town committees and cantonments), a tehsil is classified as urban if at least half of its population lives in urban areas according to Census 2023."),
   3: fn("The DFLT informational videos developed by SDPI in collaboration with BISP are available at https://drive.google.com/drive/folders/14YuNgn4AHUPPUru1nSN6D8wzhhsuMiLw"),
 };
 const quote = t => new Paragraph({ children: [new TextRun({ text: t, italics: true, size: 20 })], indent: { left: 567, right: 567 },
@@ -72,12 +72,12 @@ const children = [
     ["Agency and preferences", "Who keeps the SIM and decides on the payment, ability to visit the agent alone, language"],
   ], [2400, 6626], { zebra: true }),
   P("**Segmentation layers.** Women are then segmented on three layers:"),
-  new Paragraph({ children: [...L.runs("**Geography.** Each tehsil is classified as urban or rural, as agent access, connectivity, mobility and household norms differ between the two. DFLT Phase II trained women in 147 tehsils across 81 districts, of which 43 were urban and 104 rural (Figure 3)."), new d.FootnoteReferenceRun(2)], numbering: { reference: "bullets", level: 0 }, spacing: { after: 60, line: 264 } }),
+  new Paragraph({ children: [...L.runs("**Geography.** Each tehsil is classified as urban or rural, as agent access, connectivity, mobility and household norms differ between the two. DFLT Phase II trained women in 147 tehsils across 81 districts, of which 26 were urban and 121 rural (Figure 3)."), new d.FootnoteReferenceRun(2)], numbering: { reference: "bullets", level: 0 }, spacing: { after: 60, line: 264 } }),
   bullet("**Device.** Women are grouped by whether they use a smartphone or a basic phone, and whether they own it or share a household handset. This determines the digital channel through which she is reached."),
   bullet("**Capability.** At the end of the readiness session, the trainer identifies women who already transact independently, for example those running a small business from home. The App confirms this against phone ownership, literacy, prior transactions and the readiness task check. These women follow the digital capability track; all others attend the physical capability session."),
   figure(FIG("fig_dflt2_tehsil_map.png"), 470),
   caption("Figure 3: DFLT Phase II training tehsils by urban and rural classification"),
-  source("Source: SDPI DFLT Phase II database (254,648 registrations). Tehsils are shown within their district."),
+  source("Source: SDPI DFLT Phase II database (254,648 registrations); Pakistan Bureau of Statistics, Census 2023. Tehsils are shown within their district."),
   P("While the 70:30 capability split holds for each province as a whole, it will vary within it: urban districts such as Lahore are expected to carry a larger digital share and remote rural districts a smaller one."),
 
   // 3.1(c)

@@ -25,31 +25,39 @@ TEHSIL_FIX = {"Fateh Jhang": "Fateh Jang", "Pindi Gheb": "Pindi Gheb", "Phindi G
               "Faizgunj": "Faiz Ganj", "Khairpur mirus": "Khairpur Mirs", "Sukkur city": "Sukkur City", "Bin qasim": "Bin Qasim",
               "naushahro feroze": "Naushahro Feroze"}
 
-# Urban classification. A tehsil is urban if it is (a) a town or city tehsil of a metropolitan area
-# (Karachi, Lahore, Peshawar, Quetta, Islamabad, or a tehsil named "City"), or (b) the headquarters tehsil
-# of a district that is at least 25% urban in Census 2023 (Annex B). All other tehsils are rural.
-METRO = {"Lahore City", "Lahore Cantt", "Model Town", "Shalimar", "Quetta City", "Islamabad", "Faisalabad City",
-         "Gujranwala City", "Multan City", "Sukkur City", "Chamkani", "Pishtakhara", "Shah Alam", "Town 3", "Peshawar"}
-HQ = {"Hub": "Hub", "Lower Chitral": "Chitral", "Jamshoro": "Kotri", "Khairpur": "Khairpur Mirs", "Sukkur": "Sukkur City",
-      "Bajaur": "Khar", "Upper Dir": "Dir", "Upper Chitral": "Mastuj", "Lower Kohistan": "Pattan", "Kohistan": "Dassu",
-      "Orakzai": "Central", "Mohmand": "Prang Ghar", "Kurram": "Upper Kurram", "Khyber": "Jamrud"}
-CENSUS_NAME = {"Islamabad": "Islamabad (ICT)", "Kohistan": "Upper Kohistan"}
+# Urban classification follows the Pakistan Bureau of Statistics definition of urban areas (metropolitan and
+# municipal corporations, municipal committees, town committees and cantonments). Each training tehsil is matched
+# to its Census 2023 tehsil and classified as urban if at least half of its population lives in urban areas.
+CENSUS_DISTRICT = {"Hub": "LASBELA", "Kot Addu": "MUZAFFARGARH", "Taunsa": "DERA GHAZI KHAN", "Jhelum": "GUJRAT",
+                   "Kohistan": "UPPER KOHISTAN", "Swat": None, "Karachi": None}
+CENSUS_TEHSIL = {"Chamkani": "CHAM KANI", "Pishtakhara": "PISHTA KHARA", "Town 3": "PESHAWAR", "Khar": "KHAR BAJAUR",
+                 "Allai": "AI", "Gagra(Sawari)": "GAGRA", "Khadukhail": "KHADO KHEL", "Thakh E Nasrti": "TAKHT-E-NASRATI",
+                 "Laaki Marwat": "LAKKI MARWAT", "Serai Naurang": "SARAI NAURANG", "Bankand": "BANKAND RANOLIA",
+                 "Bala Kot": "BALAKOT", "Quetta City": "QUETTA", "Buleda": "BULAIDA", "Jhatpat": "JHAT PAT",
+                 "Multan": "MULTAN SADDAR", "Gulshan": "GULSHAN-E-IQBAL", "Shah Faisal Colony": "SHAH FAISAL",
+                 "Khairpur Mirs": "KHAIRPUR", "Sarai Alamghir": "SARAI ALAMGIR", "Kallar Syedan": "KAR SAYADDAN",
+                 "Kahror Pakka": "KAHROR PACCA", "Shujaabad": "SHUJABAD", "Panoaqil": "PANO AQIL", "18 Hazari": "18-HAZARI",
+                 "Shahkot": "SHAH KOT", "Samarbagh": "SAMARBAGH"}
+KARACHI = {"KARACHI CENTRAL", "KARACHI EAST", "KARACHI SOUTH", "KARACHI WEST", "KEAMARI", "KORANGI", "MALIR"}
 
 
-def census_urban():
-    u = {}
-    for f in ("districts.csv", "districts_post_census_derived.csv"):
-        for r in csv.DictReader(open(os.path.join(DATA, f))):
-            u[r["district"]] = float(r["urban_pct"])
-    return u
+def census_lookup():
+    rows = list(csv.DictReader(open(os.path.join(DATA, "census2023_tehsils.csv"))))
+    return [r for r in rows if r["admin_unit"] != "DE-EXCLUDED_AREA"]
 
 
-def settlement(district, tehsil, urban):
-    if district == "Karachi" or tehsil in METRO:
-        return "urban"
-    is_hq = tehsil == district or HQ.get(district) == tehsil
-    share = urban.get(CENSUS_NAME.get(district, district))
-    return "urban" if is_hq and share is not None and share >= 25 else "rural"
+def match(census, district, tehsil):
+    name = CENSUS_TEHSIL.get(tehsil, tehsil).upper()
+    cd = CENSUS_DISTRICT.get(district, district.upper())
+    pool = [r for r in census if (r["district"] in KARACHI if district == "Karachi" else (cd is None or r["district"] == cd))]
+    hits = [r for r in pool if r["tehsil"] == name]
+    if len(hits) == 1:
+        return hits[0]["district"], hits[0]["tehsil"], float(hits[0]["urban_pct"])
+    if district == "Karachi" and tehsil == "Malir":   # no census tehsil of this name: use Malir district as a whole
+        m = [r for r in census if r["district"] == "MALIR"]
+        pop = sum(int(r["population"]) for r in m); urb = sum(int(r["urban_population"]) for r in m)
+        return "MALIR", "MALIR (district)", round(100 * urb / pop, 2)
+    raise KeyError(f"no unique census match for {district} / {tehsil}: {len(hits)} hits")
 
 
 def main():
@@ -65,13 +73,14 @@ def main():
         key = (prov, dist, teh)
         a = agg.setdefault(key, [0, 0])
         a[0] += int(r[3]); a[1] += int(r[4] or 0)
-    urban = census_urban()
+    census = census_lookup()
     out = os.path.join(DATA, "dflt2_tehsils.csv")
     with open(out, "w", newline="") as f:
         w = csv.writer(f)
-        w.writerow(["province", "district", "tehsil", "registrations", "verified", "settlement"])
+        w.writerow(["province", "district", "tehsil", "registrations", "census_district", "census_tehsil", "urban_pct", "settlement"])
         for (p, dname, t), (reg, ver) in agg.items():
-            w.writerow([p, dname, t, reg, ver, settlement(dname, t, urban)])
+            cd, ct, u = match(census, dname, t)
+            w.writerow([p, dname, t, reg, cd, ct, u, "urban" if u >= 50 else "rural"])
     print("wrote", out, len(agg), "tehsils")
 
 
