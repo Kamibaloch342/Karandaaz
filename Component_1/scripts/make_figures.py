@@ -49,11 +49,10 @@ def fgd_frame():
             box(ax, x - 0.45, 2.6, 0.82, 0.9, "Urban\ntehsil", "#FDE9E7", "#C0392B", size=8.5)
             box(ax, x + 0.45, 2.6, 0.82, 0.9, "Rural\ntehsil", "#FFF5CC", "#B7950B", size=8.5)
         i += len(zones)
-    ax.text(8, 1.55, "Per tehsil: 2 FGDs with beneficiary women (below and above 45 years) · 1 FGD with men of beneficiary households · "
-            "2 KIIs (BISP tehsil office, retail agent)", ha="center", fontsize=9.5, color="#404040")
-    stats = [("4", "provinces"), ("8", "zones"), ("8", "districts"), ("16", "tehsils"), ("48", "FGDs"), ("32", "KIIs")]
+    ax.text(8, 1.55, "Per tehsil: two FGDs with beneficiary women and one FGD with men of beneficiary households", ha="center", fontsize=9.5, color="#404040")
+    stats = [("4", "provinces"), ("8", "zones"), ("8", "districts"), ("16", "tehsils"), ("48", "FGDs")]
     for k, (n, lab) in enumerate(stats):
-        x = 2.25 + k * 2.3
+        x = 3.4 + k * 2.3
         box(ax, x, 0.6, 2.0, 0.75, "", LIGHT["orange"], ORANGE)
         ax.text(x - 0.35, 0.6, n, ha="right", va="center", fontsize=15, fontweight="bold", color=ORANGE)
         ax.text(x - 0.25, 0.6, lab, ha="left", va="center", fontsize=10.5)
@@ -73,7 +72,7 @@ def journey():
         LIGHT["teal"], TEAL, size=9)
     box(ax, 11.85, 5.2, 1.9, 2.8, "Capability\ngate\n\nTrainer\ninference\n+ matrix", LIGHT["orange"], ORANGE, size=9)
     box(ax, 15.7, 6.4, 4.7, 1.55, "Physical capability\nsession (≈70%)\nsimulation, role play, worksheets", LIGHT["green"], GREEN, size=9)
-    box(ax, 15.7, 4.0, 4.7, 1.55, "Digital capability\ntrack (≈30%)\ncontent on phone + clinic call", "#EDE4F5", "#6A3D9A", size=9)
+    box(ax, 15.7, 4.0, 4.7, 1.55, "Digital capability\ntrack (≈30%)\ncapability content on phone", "#EDE4F5", "#6A3D9A", size=9)
     box(ax, 20.35, 5.2, 3.3, 2.8, "Four weeks of\ndigital reinforcement\n(capability content)\n\nThen BISP payment:\nself cash-out", LIGHT["teal"], TEAL, size=9)
     arrow(ax, 4.15, 5.2, 5.2, 5.2); arrow(ax, 10.2, 5.2, 10.9, 5.2)
     arrow(ax, 12.8, 5.7, 13.35, 6.3); arrow(ax, 12.8, 4.7, 13.35, 4.1)
@@ -123,7 +122,7 @@ def segmentation():
     # outputs
     box(ax, 6.0, 4.9, 7.6, 2.2, "Physical capability session (≈70%)\n\nSimulation on trainer tablet or own phone,\nrole play, group worksheets; then four weeks\nof channel-specific digital reinforcement",
         LIGHT["green"], GREEN, size=9.3)
-    box(ax, 14.6, 4.9, 7.6, 2.2, "Digital capability track (≈30%)\n\nCapable women with their own phone: capability\ncontent by WhatsApp or IVR, one trainer clinic call;\nphysical session remains open on request",
+    box(ax, 14.6, 4.9, 7.6, 2.2, "Digital capability track (≈30%)\n\nCapable women with their own phone receive\ncapability content by WhatsApp or IVR;\nphysical session remains open on request",
         "#EDE4F5", "#6A3D9A", size=9.3)
     line(ax, 14.2, 6.15, 6.0, 6.0); line(ax, 14.2, 6.15, 14.6, 6.0)
     box(ax, 10.3, 2.4, 19.0, 1.2, "Channel package assigned automatically: smartphone → WhatsApp videos and messages (no IVR) · USSD phone → IVR and SMS (no video) · "

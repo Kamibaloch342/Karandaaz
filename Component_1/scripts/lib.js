@@ -19,7 +19,7 @@ function runs(text, base = {}) {
 function P(text, opts = {}) {
   const children = typeof text === "string" ? runs(text, opts.run || {}) : text;
   if (opts.fn) children.push(new FootnoteReferenceRun(opts.fn));
-  return new Paragraph({ children, spacing: { after: 120, line: 276 }, alignment: opts.align || AlignmentType.JUSTIFIED, ...(opts.p || {}) });
+  return new Paragraph({ children, spacing: { before: 100, after: 120, line: 276 }, alignment: opts.align || AlignmentType.JUSTIFIED, ...(opts.p || {}) });
 }
 const H1 = t => new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun(t)], spacing: { before: 240, after: 160 } });
 const H2 = t => new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(t)], spacing: { before: 240, after: 120 } });
